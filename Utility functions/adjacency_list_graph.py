@@ -178,7 +178,7 @@ class AdjacencyListGraph:
 		copy = AdjacencyListGraph(self.card_V, self.directed, self.weighted)
 		copy.card_E = self.card_E
 		for u in range(self.card_V):
-			copy.adj_lists[u] = self.adj_lists[u].copy()
+			copy.adj_lists[u] = self.adj_lists[u].copy() #  built-in List method copy()
 		return copy
 
 	def get_edge_list(self):
@@ -217,6 +217,8 @@ class AdjacencyListGraph:
 				matrix.insert_edge(u, edge.get_v(), weight_func(edge))
 		return matrix
 
+	# The __str__() method returns a human-readable, or informal, string representation of an object.
+	# This method is called by the built-in print(), str(), and format() functions.
 	def __str__(self):
 		"""Return the adjacency lists formatted as a string."""
 		return self.strmap()

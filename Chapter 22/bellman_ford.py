@@ -77,7 +77,9 @@ if __name__ == "__main__":
 	graph1 = AdjacencyListGraph(len(vertices), True, True)
 	for edge in edges:
 		graph1.insert_edge(vertices.index(edge[0]), vertices.index(edge[1]), edge[2])
+		# list.index(elmnt) : returns the position at the first occurrence of the specified value
 	print(graph1.strmap(lambda i: vertices[i]))
+	# strmap : Return the adjacency lists formatted as a string, but mapping vertex number by a mapping function
 	# d should be [0, 2, 4, 7, -2], pi should be [None, x, y, s, t]
 	d, pi, cycle = bellman_ford(graph1, vertices.index('s'))
 	print("No negative-weight cycle:", cycle)

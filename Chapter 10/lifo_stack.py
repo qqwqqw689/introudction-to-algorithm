@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-# single_source_shortest_paths.py
+# lifo_stack.py
 
 # Introduction to Algorithms, Fourth edition
-# Linda Xiao
+# Linda Xiao and Tom Cormen
 
 #########################################################################
 #                                                                       #
@@ -30,35 +30,67 @@
 #                                                                       #
 #########################################################################
 
-def initialize_single_source(G, s):
-	"""Initialize distance and predecessor values for vertices in graph. 
-
-	Arguments:
-	G -- a graph
-	s -- index of the source vertex for shortest paths
-	"""
-	# Initialize d and pred.
-	card_V = G.get_card_V()
-	# get_card_V : Return the number of vertices in this graph
-	# d[v] is an upper bound on the weight of a shortest path from source s to v.
-	d = [float('inf')] * card_V # a list contains card_V inf
-	pi = [None] * card_V # for each v belongs to V, v.pi is its predecessor
-	d[s] = 0
-	return d, pi
+import numpy as np
 
 
-def relax(u, v, w, d, pi, relax_func=None):
-	"""Improve the shortest path to v found so far.
+class Stack:
 
-	Arguments:
-	u, v -- relaxing the edge (u, v))
-	w -- weight of the edge (u, v)
-	d -- upper bound on the weight of a shortest path from source s to v
-	pi -- list of predecessors
-	relax_func -- function called after relaxing an edge, default is to do nothing
-	"""
-	if d[v] > d[u] + w:
-		d[v] = d[u] + w  # reduce v's shortest path weight
-		pi[v] = u        # update v's predecessor predecessor
-		if relax_func is not None:
-			relax_func(v)
+	def __init__(self, n=4):
+		"""Initialize a stack with an array of length n."""
+		self.stack = [None] * n
+		self.size = n
+		self.top = -1 	# index of the top element
+
+	def is_empty(self):
+		"""Return a boolean indicating whether the stack is empty."""
+		return self.top == -1
+
+	def push(self, x):
+		"""Add an element to the top of the stack."""
+		if self.top == self.size - 1:
+			raise RuntimeError("Stack overflow")
+		else:
+			self.top += 1
+			self.stack[self.top] = x
+
+	def pop(self):
+		"""Remove the top element from the stack and return it."""
+		if self.is_empty():
+			raise RuntimeError("Stack underflow.")
+		else:
+			self.top -= 1
+			return self.stack[self.top + 1]
+
+	def __str__(self):
+		"""Print the stack up to top element."""
+		return str(self.stack[:self.top + 1])
+
+
+# Testing
+if __name__ == "__main__":
+
+	stack1 = Stack(5)
+	print(stack1)
+	stack1.push(1)
+	print(stack1)  # one element: 1
+	stack1.push(2)
+	stack1.push(100)
+	print(stack1)  # three elements: 1, 2, 100
+	print(stack1.pop()) 	# pop 100 out
+	print(stack1)
+	print(stack1.pop()) 	# pop 2 out
+	print(stack1.pop()) 	# pop 1 out
+	print(stack1.is_empty())  # should be true
+	try:
+		stack1.pop() 	# error when popping empty stack
+	except RuntimeError as e:
+		print(e)
+
+	# Check for overflow.
+	stack2 = Stack(10)
+	for i in range(11):
+		try:
+			stack2.push(i)
+		except RuntimeError as e:
+			print(e)
+	print(stack2)
