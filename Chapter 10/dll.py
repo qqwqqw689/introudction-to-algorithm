@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 # dll.py
 
+# #! characters indicate to the operating system that this is a shebang line.
+# /usr/bin/env searches for the specified program (python3 in this case) 
+# in the directories listed in the PATH environment variable.
+
 # Introduction to Algorithms, Fourth edition
 # Linda Xiao
 
@@ -42,7 +46,7 @@ class LinkedListNode:
 		"""Return data."""
 		return self.data
 
-	def __str__(self):
+	def __str__(self): #  This method is called when the str() function is called on an instance of an object
 		"""Return data as a string."""
 		return str(self.data)
 
