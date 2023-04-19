@@ -37,6 +37,9 @@ class KeyObject:
 		self.string = string
 		self.key = key
 
+	# @staticmethod declares a static method in the class
+	# no self parameter
+	# The static method can be called using ClassName.MethodName() and also using object.MethodName().
 	@staticmethod
 	def get_key(x):
 		return x.key
@@ -46,6 +49,7 @@ class KeyObject:
 		x.key = key
 
 	def __gt__(self, obj2):
+		# greater-than operator 
 		return self.key > obj2.key
 
 	def __str__(self):
